@@ -18,6 +18,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Fix Gradle Repository Mode Conflict
+      run: |
+        if [ -f settings.gradle ]; then
+          sed -i 's/RepositoriesMode.PREFER_SETTINGS/RepositoriesMode.PREFER_PROJECT/g' settings.gradle
+        fi
+
     - name: Build with Gradle Cloud Tool
       uses: gradle/actions/setup-gradle@v3
       with:
