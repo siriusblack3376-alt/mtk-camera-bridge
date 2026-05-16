@@ -18,11 +18,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Fix Gradle Repository Mode Conflict
+    - name: Nuke Repository Configuration Conflicts
       run: |
-        if [ -f settings.gradle ]; then
-          sed -i 's/RepositoriesMode.PREFER_SETTINGS/RepositoriesMode.PREFER_PROJECT/g' settings.gradle
-        fi
+        echo "pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }" > settings.gradle
+        echo "dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.PREFER_PROJECT); repositories { google(); mavenCentral() } }" >> settings.gradle
+        echo "rootProject.name = 'MtkRawBridge'" >> settings.gradle
+        echo "include ':app'" >> settings.gradle
 
     - name: Build with Gradle Cloud Tool
       uses: gradle/actions/setup-gradle@v3
