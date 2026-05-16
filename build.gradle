@@ -1,0 +1,14 @@
+// Top-level build file
+plugins {
+    id 'com.android.application' version '8.3.0' apply false
+}
+
+// Xposed API is hosted on its own Maven repo
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        // Xposed API repository
+        maven { url 'https://api.xposed.info/' }
+    }
+}

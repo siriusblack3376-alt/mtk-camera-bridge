@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.mtkrawbridge'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.mtkrawbridge"
+        minSdk 28
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            // Do NOT obfuscate - LSPosed hooks need real class names
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    // Prevent stripping of hook classes
+    packaging {
+        resources {
+            excludes += ['META-INF/*.kotlin_module']
+        }
+    }
+}
+
+dependencies {
+    // LSPosed / Xposed API - compileOnly so it's not bundled in APK
+    // The real implementation is provided by the LSPosed framework at runtime
+    compileOnly 'de.robv.android.xposed:api:82'
+    compileOnly 'de.robv.android.xposed:api:82:sources'
+}
+
+// Ensure xposed_init is included in the APK assets
+android.sourceSets.main.assets.srcDirs = ['src/main/assets']

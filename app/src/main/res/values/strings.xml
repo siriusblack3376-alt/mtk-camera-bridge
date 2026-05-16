@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MTK RAW Bridge</string>
+    <string name="app_description">Bridges Samsung/MTK vendor camera tags to AOSP Camera2 RAW API on LineageOS GSI + Helio G80</string>
+</resources>
